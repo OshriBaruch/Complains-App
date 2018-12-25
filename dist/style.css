@@ -1,0 +1,15 @@
+body {
+    background-color: #eee;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: grid;
+}
+
+.header-seciton {
+    background-color: #f5f5f5;
+    width: 100%;
+}
