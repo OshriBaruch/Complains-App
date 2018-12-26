@@ -1,8 +1,5 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-mongoose.connect('mongodb://mongodb+srv://localHost/complainDB', {
-    useNewUrlParser: true
-})
 
 const complainsSchema = new Schema({
     user: {

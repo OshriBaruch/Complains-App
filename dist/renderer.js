@@ -1,12 +1,17 @@
 class Renderer {
-    constructor(){
-    }
-    renderData(allCompanyDaa) {
-        console.log(allCompanyDaa)
-        $(".main").empty();
-        const source = $('#weather-template').html();
+    renderCompany(companyData) {
+        $("#mainData").empty();
+        let source = $('#company-template').html();
         let template = Handlebars.compile(source);
-        let newHTML = template({allCityData});
-        $("#results-container").append(newHTML);
+        let newHTML = template(companyData);
+        $('#mainData').append(newHTML);
     }
-}
+
+    renderComplain(complainData) {
+        $("#mainComplain").empty();
+        const source = $('#complain-template').html();
+        let template = Handlebars.compile(source);
+        let newHTML = template({complainData});
+        $("#mainComplain").append(newHTML);
+    }
+ }
