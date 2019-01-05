@@ -17,17 +17,16 @@
 
 <body>
     <div id="wrapper">
-        <div class="header">
-            <div class="logo">
-                <img src="./imgs/logo.png" class="logo" alt="Complain us">
-            </div>
-        </div>
-
         <div class="entry">
+            <div class="logo">
+                <a href="/">
+                    <img src="./imgs/logo.png" class="logo" class="llooggoo" alt="Complain us">
+                </a>
+            </div>
             <div class="entry-bg">
-                <h3>Check the <span class="highlight">REPUTATION</span> of the companies </h3>
+                <h3>Check the repetition of the companies / Make a Complain</h3>
                 <div class="search">
-                    <input id="search-input" type="text" placeholder="Search a company...">
+                    <input id="search-input" type="text" placeholder="Search Company..">
                     <button class="myButton" onclick=handleSearch()><i class="fas fa-search"></i></button>
                 </div>
             </div>
@@ -35,67 +34,73 @@
         <div id="main">
             <div id="mainData"></div>
             <div id="mainComplain"></div>
+            <div id="mainForm">
+                <div id="companyForm"></div>
+                <div id="complainForm"></div>
+            </div>
         </div>
-        
         <div class="footer"></div>
     </div>
 
+    <script id="CompanyForm-template" type="text/x-handlebars-template">
+        <label for="companyName">Company:</label>
+        <input type="text" class="companyName" />
+        <label for="companyDomain">Company Web:</label>
+        <input type="url" class="companyDomain" />
+    </script>
 
-
-    <!---------------------------------->
-    <!-- <script id="company-template" type="text/x-handlebars-template">
-        <div>{{companyName}}</div>
-        <div>{{companyDomain}}</div>   
-        <img class="companyLogo" src="{{companyLogo}}">
-        {{#each complain}}
-        <div class="complain-box">
-            <div class="date">{{date}}</div>
-            <div class="title">{{title}}</div>
-            <div class="complainText">{{complain}}</div>
-            <div class="complainName">{{user.name}}</div>
+    <script id="ComplainForm-template" type="text/x-handlebars-template">
+        <label for="userName">Name:</label>
+        <input type="text" class="userName" />
+        <label for="userEmail">Email:</label>
+        <input type="email" class="userEmail" />
+        <label for="complainTitle">Title:</label>
+        <input type="text" class="complainTitle" />
+        <label for="complainText">Text:</label>
+        <input type="text" class="complainText" />
+        <button class="sendNewComplain">Submit</button>
         </div>
-        {{/each}}
-    </script> -->
-
+    </script>
 
     <script id="company-template" type="text/x-handlebars-template">
-        <img class="companyLogo" src="{{companyLogo}}">
-        <div class="companyName">{{companyName}}</div>
-        <div class="companyDomain">{{companyDomain}}</div>
-   </script>
- 
+        <div class="company-box">
+        <img id="company-logo" src="{{companyLogo}}"><!--  alt="{{companyLogo}}" -->
+        <ul>
+            <li class="compNAME" >{{companyName}}</li>
+            <li><a class="company-Domain" href="http://{{companyDomain}}" target="_blank">Go to Website</a></li>
+            <li class="numOfComp"></li>
+        </ul>
+        </div>
+    </script>
 
     <script id="complain-template" type="text/x-handlebars-template">
         {{#each complainData}}
         <div class="complain-box">
-            <div class="date">{{date}}</div>
-            <div class="title">{{title}}</div>
-            <div class="complainText">{{complain}}</div>
-            <!-- <div class="complainName">{{user.name}}</div> -->
+            <div class="compName"><span>Name: </span>{{name}}</div>
+            <div class="compTitle"><span>Title: </span>{{title}}</div>
+            <div class="compText"><span>Complain: </span>{{text}}</div>
+            <div class="compDate"><span>Date: </span>{{date}}</div>
         </div>
         {{/each}}
     </script>
 
-<!---------------------------------->
-<!-- JS Files -->
-<script src="./jquery/dist/jquery.js"></script>
-<script src="./handlebars/dist/handlebars.js"></script>
-<script src="complainManager.js"></script>
-<script src="renderer.js"></script>
-<script src="main.js"></script>
+    <script id="footer-template" type="text/x-handlebars-template">
+        <div id="footerList">
+            <ul id="mostComp">the worst compenis
+            {{#each getData}}
+                <li class="compName" id="{{key}}" >{{key}} : with {{value}} complain</li>
+            {{/each}}
+            </ul>
+        </div>
+    </script>
+
+    <!---------------------------------->
+    <!-- JS Files -->
+    <script src="./jquery/dist/jquery.js"></script>
+    <script src="./handlebars/dist/handlebars.js"></script>
+    <script src="complainManager.js"></script>
+    <script src="renderer.js"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>
-<!-- <img id='companyLogo' src='{{companyLogo}}'>
-    <div class="mainComplain"> -->
-        
-        <!-- <button onclick="myGreatFunction({{{json this}}})"></button> -->
-        <!-- </div> -->
-
-
-
-    <!-- <script id="company-template" type="text/x-handlebars-template">
-                   {{#each companyData}}
-    <div class="mainCompany">
-
-        {{/each}} -->

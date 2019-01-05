@@ -4,31 +4,39 @@
 }
 
 body {
-    background-color: #eee;
+    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
     font-size: 20px;
-
 }
 
-#wrapper{
+#wrapper {
     height: 100vh;
     display: grid;
     grid-template-areas: 
-    "h h h"
-    "e e e"
-    "m m m"
-    "f f f";
-    grid-template-rows: 1fr 1fr 5fr 1fr;
-    grid-template-columns: 15px auto 15px;
+        "e e e"
+        "m m m"
+        "f f f";
+    grid-template-rows: 400px 5fr 1fr;
+    grid-template-columns: repeat(11, 1fr);
+}
+
+h3 {
+    /* background-color: #2D142C; */
+    color: rgb(26, 19, 19);
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-bottom: 80px;
 }
 
 .header {
     grid-area: h;
-    background-color: #f5f5f5;
+    /* background-color: #f5f5f5; */
     display: flex;
     justify-content: center;
     align-items: center;
+    grid-column: 1/12;
 }
 
 .entry {
@@ -37,71 +45,179 @@ body {
     justify-content: stretch;
     align-items: center;
     align-content: center;
-    background-image: linear-gradient(#eaeaea, #eeeeee);
+    background-image: linear-gradient(rgba(199, 44, 65, 0.17), #eeeeee);
     text-align: center;
+    grid-column: 1/12;
+    border-bottom: 2px solid #ffffff;
+    box-shadow: inset 0px -1px 0px 0px #c7c7c7;
+    /* background-image: linear-gradient(#fff, #f5f5f5); */
 }
 
-.entry #search-input {
+.entry-bg {
+    height: 280px;
+    background-image: url("https://i.ibb.co/z7ySbMY/complainphoto.jpg");
+    background-size: cover;
+    filter: alpha(opacity=50);
+}
+
+#search-input {
     border-radius: 24px;
     border: none;
     padding: 10px 20px;
-    width: 50%;
+    width: 20%;
+    box-shadow: 0px 3px 4px 0px rgba(12, 12, 12, 0.10);
 }
 
-
+.getForm {
+    margin: 10%;
+    border-radius: 24px;
+    border: none;
+    padding: 10px 20px;
+    width: 80%;
+    font: 30px sans-serif;
+    box-shadow: 0px 3px 4px 0px rgba(12, 12, 12, 0.10);
+}
 
 #main {
     grid-area: m;
+    grid-column: 2/11;
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-row-gap: 20px;
+    grid-column-gap: 20px;
+    margin-bottom: 20px;
+    align-items: start;
+}
+
+#mainData {
+    grid-column: 1/3;
+    grid-row: 1/2;
+}
+
+#mainForm {
+    grid-column: 1/2;
+    grid-row: 2/2;
+    display: grid;
+    grid-row-gap: 20px;
+}
+
+
+#mainComplain {
+    grid-column: 2/3;
+    display: grid;
+    grid-template-rows: max-content;
+    grid-row-gap: 20px;
+}
+
+.complain-box {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0px 2px 2px #eaeaea;
+    border-radius: 7px;
+}
+
+.complain-box span {
+    font-weight: 600;
+}
+
+.complain-box div {
+    margin-bottom: 5px;
 }
 
 .footer {
     grid-area: f;
+    grid-column: 1/12;
+}
+
+#footerList {
+    grid-area: f;
+    background-color: rgb(226, 165, 115);
+    padding: 20px;
+    justify-content: center;
+    box-shadow: 0px 2px 2px #eaeaea;
+    display: grid;
+    justify-content: center;
 }
 
 .logo {
     width: auto;
-    height: 70px;
+    height: 100px;
     margin-bottom: 20px;
+    margin-right: 50%;
 }
 
+.company-box {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: start;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+}
+
+
+
+#company-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 120px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+
+.company-box ul li {
+    list-style: none;
+}
+
+.company-box img {
+    width: 50%;
+    height: auto;
+    vertical-align: middle;
+}
+
+.userForm {
+    align-self: start;
+    display: inline-block;
+    font-size: 20px;
+    background-color: rgb(218, 234, 238);
+    padding: 2vmax;
+    box-shadow: 5px 2px 10px black;
+    border-radius: 4px;
+}
 
 .myButton {
-    -moz-box-shadow:inset 0px 1px 0px 0px #f29c93;
-    -webkit-box-shadow:inset 0px 1px 0px 0px #f29c93;
-    box-shadow:inset 0px 1px 0px 0px #f29c93;
-    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #fe1a00), color-stop(1, #ce0100));
-    background:-moz-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
-    background:-webkit-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
-    background:-o-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
-    background:-ms-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
-    background:linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fe1a00', endColorstr='#ce0100',GradientType=0);
-    background-color:#fe1a00;
-    -moz-border-radius:6px;
-    -webkit-border-radius:6px;
-    border-radius:6px;
-    border:1px solid #d83526;
-    display:inline-block;
-    cursor:pointer;
-    color:#ffffff;
-    font-family:Arial;
-    font-size:15px;
-    font-weight:bold;
-    padding:6px 24px;
-    text-decoration:none;
-    text-shadow:0px 1px 0px #b23e35;
+    background-color: transparent;
+    border: none;
+    vertical-align: baseline;
+    font-size: 24px;
+    cursor: pointer;
 }
-.myButton:hover {
-    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ce0100), color-stop(1, #fe1a00));
-    background:-moz-linear-gradient(top, #ce0100 5%, #fe1a00 100%);
-    background:-webkit-linear-gradient(top, #ce0100 5%, #fe1a00 100%);
-    background:-o-linear-gradient(top, #ce0100 5%, #fe1a00 100%);
-    background:-ms-linear-gradient(top, #ce0100 5%, #fe1a00 100%);
-    background:linear-gradient(to bottom, #ce0100 5%, #fe1a00 100%);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ce0100', endColorstr='#fe1a00',GradientType=0);
-    background-color:#ce0100;
+
+label {
+    display: block;
+    margin-bottom: 5px;
 }
-.myButton:active {
-    position:relative;
-    top:1px;
+
+#mainForm input {
+    width: 100%;
+    max-width: 80%;
+    margin-bottom: 10px;
+    line-height: 30px;
+    padding: 5px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
 }
+
+.sendNewComplain {
+    padding: 5px 10px;
+    display: block;
+    border-radius: 10px;
+    background-color: transparent;
+    max-width: 120px;
+    border: 1px solid #2d142c;
+}
+
+.complainText {}

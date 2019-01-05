@@ -14,83 +14,87 @@ const users = require('../model/Users')
 
 router.get('/company/:companyName', function (req, res) {
     let companyName = req.params.companyName
-    companies.find({
-            companyName: companyName
-        })
+    companies.find({ companyName: companyName })
         .populate({
             path: 'complains',
             populate: {
                 path: 'user'
             }
         })
-        .exec(function (err, response) {
-            if (response == []) {
-                res.send("not Found")
-            } else {
-                res.send(response)
-            }
-        })
- });
- 
- 
- const getAPIFunc = (companyName) => {
-    request(`https://autocomplete.clearbit.com/v1/companies/suggest?query=${companyName}`, function (error, response) {
-        if (error) {
-            return 'apixu_API :error ' + error
+        .exec(function (err, response) { res.send(response) })
+});
+
+router.get('/companyFooter/', function (req, res) {
+    companies.find({}).populate('complains').exec(function (err, response) {
+        let array = []
+        response.forEach(g => array.push(g.companyName))
+        let mostCompanies = {}
+        for (let i of array) {
+            mostCompanies[i] ? mostCompanies[i]++ : mostCompanies[i] = 1
         }
-        let companyAPI = JSON.parse(response.body)
-        if (!(response.body)) {
-            return "no data from API"
-        } else {
-            return ({
+        sortObject = (obj) => {
+            let footerArr = [];
+            for (let prop in obj) {
+                if (obj.hasOwnProperty(prop)) {
+                    footerArr.push({
+                        'key': prop,
+                        'value': obj[prop]
+                    });
+                }
+            }
+            footerArr.sort((a, b) => { return a.value - b.value; });
+            return footerArr;
+        }
+        let footerArr = sortObject(mostCompanies);
+        res.send(footerArr.reverse());
+    })
+});
+
+router.get('/APIReq/:companyName', async function (req, res) {
+    let companyName = req.params.companyName
+    await request(`https://autocomplete.clearbit.com/v1/companies/suggest?query=${companyName}`, function (error, response) {
+        if ((error) || (response.body == "[]") || (response == "undefined")) { res.send('not found') } else {
+            let companyAPI = JSON.parse(response.body)
+            res.send({
                 name: companyAPI[0].name,
                 updated: moment().format('LLLL'),
                 logo: companyAPI[0].logo,
                 domain: companyAPI[0].domain
             })
         }
-    })
- }
- 
- router.get('/APIReq/:companyName', async function (req, res) {
-    let companyName = req.params.companyName
-    let data = await getAPIFunc(companyName)
-    res.send(data)
- });
- 
- router.post('/company', function (req, res) {
+    });
+})
+
+router.post('/company', function (req, res) {
     let company = req.body
-    console.log(company.complains[0].user)
     let companie = new companies({
         companyName: company.companyName,
         companyDomain: company.companyDomain,
         companyLogo: company.companyLogo,
         complains: []
     })
- 
     let user = new users({
-        name: company.complains[0].user.name,
-        email: company.complains[0].user.email,
+        name: company.userName,
+        email: company.userEmail,
         complains: [],
     })
- 
     let complain = new complains({
         user: user,
         date: moment().format('LLLL'),
-        title: company.complains[0].title,
+        title: company.complainsTitle,
         upVote: 1,
-        text: company.complains[0].text,
+        text: company.complainsText,
         company: companie
     })
- 
+
     companie.complains.push(complain)
     user.complains.push(complain)
- 
+
     companie.save()
     complain.save()
     user.save()
- 
+
     res.send("city saved")
- })
- 
- module.exports = router
+})
+
+module.exports = router
